@@ -1937,6 +1937,70 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
   body { font-size: 17px; }
 }
 </style>
+
+<style>
+/* ── INFRA CAROUSEL LIGHTBOX ── */
+.infra-slide img { cursor: zoom-in; }
+#infra-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+#infra-lightbox.open { display: flex; }
+#infra-lightbox img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 48px rgba(0,0,0,.6);
+  display: block;
+}
+#infra-lb-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,.15);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #fff;
+  line-height: 1;
+  transition: background .2s;
+}
+#infra-lb-close:hover { background: rgba(255,255,255,.3); }
+#infra-lb-prev,
+#infra-lb-next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,.15);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #fff;
+  transition: background .2s;
+}
+#infra-lb-prev:hover, #infra-lb-next:hover { background: rgba(255,255,255,.3); }
+#infra-lb-prev { left: 20px; }
+#infra-lb-next { right: 20px; }
+</style>
 </head>
 <body>
 
@@ -2532,6 +2596,56 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
       nav.classList.remove('nav-mobile-open');
       btn.setAttribute('aria-expanded', 'false');
     }
+  });
+})();
+</script>
+
+<!-- Infra Lightbox -->
+<div id="infra-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button id="infra-lb-close" aria-label="Close">&#x2715;</button>
+  <button id="infra-lb-prev" aria-label="Previous">&#x2039;</button>
+  <img id="infra-lb-img" src="" alt="Hospital facility">
+  <button id="infra-lb-next" aria-label="Next">&#x203A;</button>
+</div>
+
+<script>
+(function(){
+  var lb    = document.getElementById('infra-lightbox');
+  var lbImg = document.getElementById('infra-lb-img');
+  var imgs  = [];
+  var cur   = 0;
+
+  function open(idx){
+    cur = (idx + imgs.length) % imgs.length;
+    lbImg.src = imgs[cur];
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    lb.classList.remove('open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  // Collect all infra-slide images
+  document.querySelectorAll('.infra-slide img').forEach(function(img, i){
+    imgs.push(img.src);
+    img.addEventListener('click', function(){ open(i); });
+  });
+
+  document.getElementById('infra-lb-close').addEventListener('click', close);
+  document.getElementById('infra-lb-prev').addEventListener('click', function(){ open(cur - 1); });
+  document.getElementById('infra-lb-next').addEventListener('click', function(){ open(cur + 1); });
+
+  lb.addEventListener('click', function(e){
+    if(e.target === lb) close();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowLeft')  open(cur - 1);
+    if(e.key === 'ArrowRight') open(cur + 1);
   });
 })();
 </script>
