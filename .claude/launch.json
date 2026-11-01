@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "vaibhavi-hospital",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "output/website-copy"],
+      "port": 5500,
+      "autoPort": true
+    }
+  ]
+}

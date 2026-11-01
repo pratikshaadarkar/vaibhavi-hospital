@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vaibhavi Hospital — Homepage Preview (v5)</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #39892F;
+    --blue: #00338E;
+    --green-light: #f0f7ef;
+    --blue-light: #f0f4fb;
+    --grey-50: #fafafa;
+    --grey-100: #f4f4f4;
+    --grey-200: #e8e8e8;
+    --grey-400: #9a9a9a;
+    --grey-700: #444;
+    --text: #1a1a1a;
+    --white: #ffffff;
+    --max: 1100px;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    font-size: 16px;
+    line-height: 1.6;
+    width: 1280px;
+    margin: 0 auto;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* ─── NAV ─────────────────────────────────────── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-200);
+    padding: 0 80px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand { display: flex; flex-direction: column; gap: 2px; }
+  .nav-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1.1;
+  }
+  .nav-brand-tag {
+    font-size: 11px;
+    color: var(--grey-400);
+    letter-spacing: 0.03em;
+  }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--grey-700);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--green);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+  }
+  .nav-emergency {
+    font-size: 13px !important;
+    color: #c0392b !important;
+    font-weight: 600 !important;
+  }
+
+  /* ─── HERO ────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #f8fdf7 0%, #f0f4fb 100%);
+    padding: 80px 80px 72px;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 64px;
+    align-items: center;
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--green);
+    display: inline-block;
+  }
+  .hero h1 {
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue);
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--grey-700);
+    line-height: 1.65;
+    margin-bottom: 36px;
+    max-width: 540px;
+  }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    background: var(--green);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--blue);
+    border: 1.5px solid var(--blue);
+    padding: 13px 26px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .hero-image-box {
+    background: var(--grey-100);
+    border: 2px dashed var(--grey-200);
+    border-radius: 8px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .hero-image-box .img-label { font-size: 13px; color: var(--grey-400); font-weight: 500; }
+  .hero-image-box .img-sub { font-size: 11px; color: #bbb; }
+  .img-icon { font-size: 32px; opacity: 0.3; }
+
+  /* ─── SECTION WRAPPER ─────────────────────────── */
+  section { padding: 72px 80px; }
+  section.alt { background: var(--grey-50); }
+  section.dark { background: var(--blue); color: var(--white); }
+  section.green-bg { background: var(--green-light); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+  .section-label.on-dark { color: #7ec87a; }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--grey-200);
+    margin: 0;
+  }
+
+  /* ─── TRUST STRIP ─────────────────────────────── */
+  .trust-strip {
+    background: var(--blue);
+    padding: 0;
+  }
+  .trust-strip-inner {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: none;
+  }
+  .trust-item {
+    padding: 28px 24px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .trust-item:last-child { border-right: none; }
+  .trust-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+  .trust-item-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.4;
+  }
+
+  /* ─── QUICK ACTION STRIP ──────────────────────── */
+  .quick-actions {
+    background: var(--green-light);
+    border-bottom: 1px solid #d4ebd0;
+    padding: 20px 80px;
+  }
+  .quick-actions-inner {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .quick-btn {
+    padding: 11px 22px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+  }
+  .quick-btn.primary { background: var(--green); color: white; }
+  .quick-btn.secondary { background: white; color: var(--green); border: 1.5px solid var(--green); }
+  .quick-btn.emergency { background: #c0392b; color: white; }
+  .quick-btn.info { background: var(--blue); color: white; }
+
+  /* ─── DOCTOR AUTHORITY ────────────────────────── */
+  .doctor-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .doctor-photo-box {
+    background: var(--grey-100);
+    border: 2px dashed var(--grey-200);
+    border-radius: 8px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: sticky;
+    top: 88px;
+  }
+  .doctor-content {}
+  .doctor-title {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .doctor-title em { font-style: italic; color: var(--green); }
+  .doctor-name {
+    font-size: 15px;
+    color: var(--grey-400);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .doctor-body p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--grey-700);
+    margin-bottom: 16px;
+  }
+  blockquote {
+    border-left: 3px solid var(--green);
+    padding: 16px 24px;
+    margin: 28px 0;
+    background: var(--green-light);
+    border-radius: 0 4px 4px 0;
+  }
+  blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--text);
+    margin: 0 0 8px !important;
+  }
+  blockquote cite {
+    font-size: 13px;
+    color: var(--grey-400);
+    font-style: normal;
+  }
+  .tag-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 24px 0 0;
+  }
+  .tag {
+    background: var(--blue-light);
+    color: var(--blue);
+    border: 1px solid #c5d5ee;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .tag.green { background: var(--green-light); color: var(--green); border-color: #b8dcb3; }
+
+  /* ─── DIAGRAM PLACEHOLDER ─────────────────────── */
+  .diagram-box {
+    background: var(--grey-100);
+    border: 2px dashed var(--grey-200);
+    border-radius: 8px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .diagram-box .img-label { font-size: 14px; color: var(--grey-400); font-weight: 600; }
+  .diagram-box .img-sub { font-size: 12px; color: #bbb; text-align: center; max-width: 420px; }
+
+  /* ─── PHILOSOPHY PULL QUOTE ──────────────────── */
+  .philosophy-pull {
+    background: var(--blue);
+    padding: 48px 80px;
+  }
+  .philosophy-pull blockquote {
+    background: transparent;
+    border-left: 3px solid rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .philosophy-pull blockquote p {
+    color: rgba(255,255,255,0.9) !important;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-family: 'Inter', sans-serif !important;
+    line-height: 1.7 !important;
+    margin: 0 !important;
+  }
+  .philosophy-pull blockquote cite { color: rgba(255,255,255,0.5); }
+
+  /* ─── CARE PHILOSOPHY BULLETS ─────────────────── */
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 40px;
+  }
+  .philosophy-item {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: 6px;
+    padding: 28px 28px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .philosophy-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--green-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .philosophy-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .philosophy-item p {
+    font-size: 14px;
+    color: var(--grey-700);
+    line-height: 1.6;
+  }
+
+  /* ─── PATIENT QUOTES ROW ─────────────────────── */
+  .quotes-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .patient-quote {
+    flex: 1;
+    background: var(--green-light);
+    border-radius: 6px;
+    padding: 20px 20px;
+  }
+  .patient-quote p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .patient-quote cite { font-size: 12px; color: var(--grey-400); }
+
+  .section-closing {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--grey-700);
+    margin-top: 40px;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+  }
+
+  /* ─── MEET EXPERTS ────────────────────────────── */
+  .experts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+  }
+  .expert-card {
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .expert-photo-box {
+    background: var(--grey-100);
+    border-bottom: 2px dashed var(--grey-200);
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .expert-body { padding: 28px; }
+  .expert-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .expert-role {
+    font-size: 13px;
+    color: var(--grey-400);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .expert-card-qual {
+    font-size: 14px;
+    color: var(--grey-700);
+    margin-bottom: 16px;
+  }
+  .expert-desc {
+    font-size: 14px;
+    color: var(--grey-700);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  .expert-spec-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey-400);
+    margin-bottom: 10px;
+  }
+  .spec-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .spec-tag {
+    background: var(--green-light);
+    color: var(--green);
+    border: 1px solid #b8dcb3;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .spec-tag.blue { background: var(--blue-light); color: var(--blue); border-color: #c5d5ee; }
+  .location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    background: var(--blue-light);
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--green);
+    text-decoration: none;
+  }
+  .card-link::after { content: '→'; }
+
+  /* ─── SERVICES GRID ───────────────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    padding: 28px;
+    transition: border-color 0.2s;
+  }
+  .service-card:hover { border-color: var(--green); }
+  .service-icon {
+    width: 48px; height: 48px;
+    background: var(--green-light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .service-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .service-lede {
+    font-size: 14px;
+    color: var(--grey-700);
+    line-height: 1.6;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .service-clinical {
+    font-size: 13px;
+    color: var(--grey-400);
+    line-height: 1.55;
+    border-top: 1px solid var(--grey-200);
+    padding-top: 12px;
+  }
+
+  /* ─── FACILITIES ──────────────────────────────── */
+  .facilities-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-bottom: 48px;
+  }
+  .facilities-header h2 { font-size: 40px; font-weight: 700; }
+  .facilities-header p { font-size: 16px; color: var(--grey-700); line-height: 1.65; }
+  .facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .facility-card {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    padding: 24px 20px;
+  }
+  .facility-photo-box {
+    background: var(--grey-100);
+    border: 2px dashed var(--grey-200);
+    border-radius: 6px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .facility-photo-box .img-label { font-size: 11px; color: var(--grey-400); font-weight: 500; }
+  .facility-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .facility-card .facility-sub {
+    font-size: 12px;
+    color: var(--grey-400);
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .facility-card p { font-size: 13px; color: var(--grey-700); line-height: 1.5; }
+  .facility-same-bldg {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue);
+    border: 1px solid #c5d5ee;
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .facilities-footer-quote {
+    background: var(--blue);
+    border-radius: 8px;
+    padding: 36px 40px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .facilities-footer-quote p {
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .facilities-footer-quote span {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+  }
+  .vaibhavi-standard {
+    background: var(--green-light);
+    border: 1px solid #b8dcb3;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-top: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .vaibhavi-standard-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .vaibhavi-standard p {
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--grey-700);
+    margin-bottom: 6px;
+  }
+  .vaibhavi-standard cite {
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* ─── THURSDAY CAMP ───────────────────────────── */
+  .thursday-section {
+    background: var(--green);
+    color: white;
+    padding: 72px 80px;
+  }
+  .thursday-inner {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 64px;
+    align-items: center;
+  }
+  .thursday-badges {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .thursday-badge {
+    background: rgba(255,255,255,0.18);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .thursday-section h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .thursday-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  .thursday-section p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 12px;
+  }
+  .thursday-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    margin: 24px 0 28px;
+  }
+  .thursday-actions { display: flex; gap: 14px; }
+  .btn-white {
+    background: white;
+    color: var(--green);
+    padding: 13px 26px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-outline-white {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 11px 24px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .thursday-image-box {
+    background: rgba(255,255,255,0.12);
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 8px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .thursday-image-box .img-label { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 500; }
+
+  /* ─── SOCIAL PROOF ────────────────────────────── */
+  .social-proof { background: var(--grey-50); }
+  .hero-review {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    padding: 40px 44px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .hero-review p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .hero-review cite { font-size: 14px; color: var(--grey-400); font-style: normal; }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .review-card {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: 8px;
+    padding: 28px;
+  }
+  .review-card p {
+    font-size: 15px;
+    color: var(--grey-700);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .review-card cite { font-size: 12px; color: var(--grey-400); font-style: normal; }
+  .review-placeholder {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ─── APPOINTMENT CTA ─────────────────────────── */
+  .appointment-section {
+    background: var(--blue);
+    padding: 80px;
+  }
+  .appointment-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .appt-eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .appointment-section h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+  .appointment-section p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .appt-actions { display: flex; gap: 14px; margin-bottom: 24px; }
+  .appt-address {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .hours-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .hour-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .hour-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .hour-label { font-size: 14px; color: rgba(255,255,255,0.65); font-weight: 500; }
+  .hour-value { font-size: 15px; color: white; font-weight: 700; }
+  .hour-badge {
+    background: #c0392b;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ─── FOOTER ──────────────────────────────────── */
+  footer {
+    background: #111;
+    color: rgba(255,255,255,0.75);
+    padding: 64px 80px 40px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 300px 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .footer-brand-tag {
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+  }
+  .footer-brand-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+  }
+  .footer-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .footer-website {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  .footer-col h5 {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+  }
+  .footer-col ul li a:hover { color: white; }
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 12px;
+  }
+  .contact-item-icon { flex-shrink: 0; }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ─── PLACEHOLDER BOXES ───────────────────────── */
+  .img-placeholder {
+    background: var(--grey-100);
+    border: 2px dashed var(--grey-200);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .img-placeholder .img-label { font-size: 13px; color: var(--grey-400); font-weight: 500; text-align: center; }
+  .img-placeholder .img-sub { font-size: 11px; color: #bbb; text-align: center; padding: 0 16px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="nav-brand-name">Vaibhavi Hospital</span>
+    <span class="nav-brand-tag">Where Healthcare Meets Humanity</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Services</a>
+    <a href="#">Facilities</a>
+    <a href="#">About Dr. Vaibhavi</a>
+    <a href="#">Thursday Camp</a>
+    <a href="#" class="nav-emergency">🚨 Emergency</a>
+    <a href="#" class="nav-cta">Book Appointment</a>
+  </div>
+</nav>
+
+
+<!-- HERO (structural — supports Trust Strip entry) -->
+<section style="background: linear-gradient(120deg, #f8fdf7 0%, #f0f4fb 100%); padding: 72px 80px 64px;">
+  <div style="display: grid; grid-template-columns: 1fr 460px; gap: 64px; align-items: center; max-width: var(--max); margin: 0 auto;">
+    <div>
+      <div class="section-label">Taloja's Women's &amp; Maternity Hospital</div>
+      <h1 style="font-size: 52px; font-weight: 700; line-height: 1.18; margin-bottom: 24px;">Complete Women's Care<br><em style="font-style: italic; color: var(--blue);">Under One Roof</em></h1>
+      <p style="font-size: 17px; color: var(--grey-700); line-height: 1.65; margin-bottom: 36px; max-width: 480px;">ICU &amp; NICU on-site. Diagnostics on the same floor. Dr. Vaibhavi Birle, MS OBG — the doctor who explains everything, right here in Taloja.</p>
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <button class="btn-primary">Book OPD Appointment</button>
+        <button class="btn-secondary">Call 7039330945</button>
+      </div>
+    </div>
+    <div class="img-placeholder" style="height: 400px;">
+      <span class="img-icon">📷</span>
+      <span class="img-label">Hero Photo — Dr. Vaibhavi</span>
+      <span class="img-sub">Hospital exterior or Dr. Vaibhavi in consultation</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <div class="trust-item">
+      <div class="trust-item-title">ICU On-Site</div>
+      <div class="trust-item-sub">Intensive care, always within reach</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-title">NICU On-Site</div>
+      <div class="trust-item-sub">Your baby's care stays in this building</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-title">Mekhale Diagnostics — Same Floor</div>
+      <div class="trust-item-sub">Every scan and report — ground floor, same building</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-title">Govt. Recognised MTP &amp; TL Centre</div>
+      <div class="trust-item-sub">Regulated. Recognised. Safe.</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-title">24/7 Emergency Response</div>
+      <div class="trust-item-sub">Our team is ready before you arrive</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- QUICK ACTION STRIP -->
+<div class="quick-actions">
+  <div class="quick-actions-inner">
+    <button class="quick-btn primary">Book OPD Appointment</button>
+    <button class="quick-btn secondary">Free Thursday Camp</button>
+    <button class="quick-btn emergency">🚨 Emergency Call</button>
+    <button class="quick-btn info">💳 Mediclaim Info</button>
+  </div>
+</div>
+
+<hr class="divider">
+
+
+<!-- DOCTOR AUTHORITY -->
+<section>
+  <div class="section-label">Meet Your Doctor</div>
+  <div class="doctor-section">
+
+    <div class="doctor-photo-box">
+      <span class="img-icon">👩‍⚕️</span>
+      <span class="img-label">Dr. Vaibhavi Birle</span>
+      <span class="img-sub" style="font-size: 12px; color: #bbb;">Portrait photo — consultation or hero</span>
+    </div>
+
+    <div class="doctor-content">
+      <h2 class="doctor-title">The Doctor<br>Who <em>Explains</em></h2>
+      <div class="doctor-name">Dr. Vaibhavi Birle · MBBS, MS Obstetrics &amp; Gynaecology · 6+ Years Post-MS</div>
+      <div class="doctor-body">
+        <p>Most doctors tell you what to do.<br>Dr. Vaibhavi tells you <em>why</em> — and draws it out until you see it clearly.</p>
+        <p>She pulls out a diagram. She asks if you understood. She asks again. She goes over the scan with you, point by point, so you walk out knowing exactly what is happening in your body, what comes next, and what to watch for.</p>
+
+        <blockquote>
+          <p>"Until my patient understands — fully understands — I keep explaining. That is how I work."</p>
+          <cite>— Dr. Vaibhavi Birle</cite>
+        </blockquote>
+
+        <div class="tag-strip">
+          <span class="tag">MS Obstetrics &amp; Gynaecology</span>
+          <span class="tag">6+ Years Clinical Experience</span>
+          <span class="tag">High-Risk Pregnancy Specialist</span>
+          <span class="tag">PCOD &amp; Infertility Expert</span>
+        </div>
+
+        <!-- DIAGRAM PLACEHOLDER -->
+        <div class="diagram-box">
+          <span class="img-icon" style="font-size: 28px; opacity: 0.25;">📊</span>
+          <span class="img-label">DIAGRAM PLACEHOLDER — "How Dr. Vaibhavi Explains Your Scan"</span>
+          <span class="img-sub">A visual walkthrough of a standard antenatal ultrasound consultation — what the doctor points to, what she explains, and what the patient leaves knowing.</span>
+        </div>
+
+        <p style="margin-top: 32px;">Her patients do not come back because they have to.<br>They come back because this is the doctor they trust — with their pregnancy, with their daughters, with every woman in their family.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+
+<!-- CARE PHILOSOPHY -->
+<section class="alt">
+  <div class="section-label">Our Standard of Care</div>
+  <h2 style="font-size: 40px; font-weight: 700; margin-bottom: 8px;">Obstetric Continuity —<br>Built Into the Building</h2>
+  <p style="font-size: 16px; color: var(--grey-700); max-width: 600px; line-height: 1.65; margin-bottom: 0;">This is what complete care means in practice:</p>
+
+  <div class="philosophy-grid">
+    <div class="philosophy-item">
+      <div class="philosophy-icon">🏥</div>
+      <div>
+        <h4>ICU and NICU are on this floor.</h4>
+        <p>If a delivery requires intensive care for you or your baby, the response is immediate — inside Ridhisha Tower, by the same team, with zero transfer time.</p>
+      </div>
+    </div>
+    <div class="philosophy-item">
+      <div class="philosophy-icon">🔬</div>
+      <div>
+        <h4>Mekhale Diagnostic Center is on the ground floor.</h4>
+        <p>Every sonography, colour Doppler, blood test, and pathology report happens in the same building where your OPD appointment is.</p>
+      </div>
+    </div>
+    <div class="philosophy-item">
+      <div class="philosophy-icon">🩺</div>
+      <div>
+        <h4>The Operation Theatre is here.</h4>
+        <p>LSCS (Caesarean delivery), hysteroscopy, and gynaecological surgical procedures are performed on-site — with full surgical readiness from Day One.</p>
+      </div>
+    </div>
+    <div class="philosophy-item">
+      <div class="philosophy-icon">📅</div>
+      <div>
+        <h4>Your care journey runs from Week 1 to recovery.</h4>
+        <p>First antenatal visit, antenatal monitoring, delivery, postpartum check-up — one building, one specialist, one complete record.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quotes-row">
+    <div class="patient-quote"><p>"You explain things well."</p><cite>— Patient of Dr. Vaibhavi Birle</cite></div>
+    <div class="patient-quote"><p>"You listen."</p><cite>— Patient of Dr. Vaibhavi Birle</cite></div>
+    <div class="patient-quote"><p>"You take all our problems into consideration."</p><cite>— Patient of Dr. Vaibhavi Birle</cite></div>
+  </div>
+
+  <p class="section-closing">End-to-end care, for every woman and her family.</p>
+</section>
+
+<hr class="divider">
+
+
+<!-- MEET EXPERTS -->
+<section>
+  <div class="section-label">Our Specialists</div>
+  <h2 style="font-size: 40px; font-weight: 700; margin-bottom: 8px;">Meet Your Care Team</h2>
+  <p style="font-size: 16px; color: var(--grey-700); max-width: 560px; line-height: 1.65;">Two specialists. One building. Complete care.</p>
+
+  <div class="experts-grid">
+
+    <!-- Dr. Vaibhavi -->
+    <div class="expert-card">
+      <div class="expert-photo-box">
+        <span class="img-icon">👩‍⚕️</span>
+        <span class="img-label" style="font-size: 12px; color: var(--grey-400);">Dr. Vaibhavi Birle — portrait photo</span>
+      </div>
+      <div class="expert-body">
+        <h3 class="expert-name">Dr. Vaibhavi Birle</h3>
+        <div class="expert-role">Obstetrician &amp; Gynaecologist · Founder</div>
+        <div class="expert-card-qual">MBBS, MS Obstetrics &amp; Gynaecology · 6+ Years Post-MS</div>
+        <div class="expert-spec-label">Specialisations</div>
+        <div class="spec-list">
+          <span class="spec-tag">High-Risk Pregnancy</span>
+          <span class="spec-tag">Infertility</span>
+          <span class="spec-tag">PCOD &amp; PCOS</span>
+          <span class="spec-tag">Painless Delivery</span>
+          <span class="spec-tag">Antenatal Care</span>
+        </div>
+        <a href="#" class="card-link">Meet Dr. Vaibhavi</a>
+      </div>
+    </div>
+
+    <!-- Dr. Mekhale -->
+    <div class="expert-card">
+      <div class="expert-photo-box">
+        <span class="img-icon">🔬</span>
+        <span class="img-label" style="font-size: 12px; color: var(--grey-400);">Dr. Rasik Mekhale — portrait photo</span>
+      </div>
+      <div class="expert-body">
+        <h3 class="expert-name">Dr. Rasik Mekhale</h3>
+        <div class="expert-role">Diagnostic &amp; Ultrasound Specialist · Mekhale Diagnostic Center</div>
+        <p class="expert-desc">Your scan, your Doppler, your blood reports — same building, same day, ground floor. Your care stays complete without a single step outside.</p>
+        <div class="location-badge">📍 Ground Floor · Same Building</div>
+        <div class="expert-spec-label">Services</div>
+        <div class="spec-list">
+          <span class="spec-tag blue">Obstetric Ultrasound</span>
+          <span class="spec-tag blue">Colour Doppler</span>
+          <span class="spec-tag blue">X-Ray &amp; Radiology</span>
+          <span class="spec-tag blue">Pathology Lab</span>
+        </div>
+        <a href="#" class="card-link">Mekhale Diagnostic Center</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+
+<!-- SERVICES GRID -->
+<section class="alt">
+  <div class="section-label">What We Treat</div>
+  <h2 style="font-size: 40px; font-weight: 700; margin-bottom: 8px;">Our Services</h2>
+  <p style="font-size: 16px; color: var(--grey-700); max-width: 560px; line-height: 1.65;">Every stage of a woman's health — under one roof.</p>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🤱</div>
+      <h3>High-Risk Pregnancy</h3>
+      <p class="service-lede">Your pregnancy deserves the full clinical attention it requires — right here, at every stage.</p>
+      <p class="service-clinical">Clinical Management of hypertensive disorders, gestational diabetes, foetal growth restriction, and obstetric emergencies with on-site ICU and NICU readiness.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">👶</div>
+      <h3>Painless Delivery</h3>
+      <p class="service-lede">A safe, supported delivery — whether vaginal or LSCS (Caesarean delivery) — planned around your health and your baby's.</p>
+      <p class="service-clinical">Clinical Management of labour, including epidural pain relief options and full surgical readiness for Caesarean delivery, on-site.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🩺</div>
+      <h3>PCOD / PCOS</h3>
+      <p class="service-lede">Irregular periods, weight changes, skin concerns — your body is giving you signals, and we help you understand every one.</p>
+      <p class="service-clinical">Clinical Management of Polycystic Ovarian Disease and Syndrome through hormonal assessment, lifestyle guidance, and medication protocols.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3>ANC Care (Antenatal Care)</h3>
+      <p class="service-lede">Your full pregnancy journey — from your first confirmation scan to your delivery day — guided and monitored in one place.</p>
+      <p class="service-clinical">Clinical Management of antenatal health through scheduled check-ups, growth scans, nutritional counselling, and birth planning across all three trimesters.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">💊</div>
+      <h3>Infertility</h3>
+      <p class="service-lede">If you have been trying to conceive and need answers, you are in the right place.</p>
+      <p class="service-clinical">Clinical Management of primary and secondary infertility through diagnostic evaluation, ovulation induction, hormonal therapy, and surgical intervention where required.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">👨‍👩‍👧</div>
+      <h3>Family Planning</h3>
+      <p class="service-lede">The right choice for your family is one only you can make — we give you the information and the options to make it clearly.</p>
+      <p class="service-clinical">Clinical Management of contraceptive planning, Copper-T insertion, MTP (Medical Termination of Pregnancy), and TL (Tubectomy/Tubal Ligation) at a Govt. Recognised centre.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+
+<!-- FACILITIES -->
+<section>
+  <div class="facilities-header">
+    <div>
+      <div class="section-label">Our Infrastructure</div>
+      <h2>Everything<br>Under One Roof</h2>
+    </div>
+    <div style="padding-top: 36px;">
+      <p>ICU, NICU, Operation Theatre, diagnostics, and recovery rooms — all within Ridhisha Tower, Sector 23.</p>
+    </div>
+  </div>
+
+  <div class="facilities-grid">
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🍼</span>
+        <span class="img-label">NICU photo</span>
+      </div>
+      <h4>NICU</h4>
+      <div class="facility-sub">Neonatal Stabilisation On-Site</div>
+      <p>Your newborn receives intensive care in the same building where they were born.</p>
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🏥</span>
+        <span class="img-label">ICU photo</span>
+      </div>
+      <h4>ICU</h4>
+      <div class="facility-sub">Adult Intensive Care · 24/7</div>
+      <p>Critical care for mothers who need it — immediate, in-house, around the clock.</p>
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🔪</span>
+        <span class="img-label">OT photo</span>
+      </div>
+      <h4>Operation Theatre</h4>
+      <div class="facility-sub">Surgical Readiness · LSCS &amp; Gynaecological</div>
+      <p>Full surgical capability for Caesarean delivery and gynaecological procedures — prepared and ready.</p>
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🚨</span>
+        <span class="img-label">Emergency unit photo</span>
+      </div>
+      <h4>24/7 Emergency</h4>
+      <div class="facility-sub">Critical Care · Always Ready</div>
+      <p>Our emergency team is present before you arrive — day, night, or between.</p>
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🛏️</span>
+        <span class="img-label">Delivery room photo</span>
+      </div>
+      <h4>Delivery Room</h4>
+      <div class="facility-sub">Labour &amp; Delivery Suite</div>
+      <p>A clean, prepared, supported space for the most important moment.</p>
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🔬</span>
+        <span class="img-label">Diagnostics centre photo</span>
+      </div>
+      <h4>Mekhale Diagnostics</h4>
+      <span class="facility-same-bldg">Same Bldg</span>
+      <div class="facility-sub">Ground Floor · Same Building</div>
+      <p>Sonography, colour Doppler, pathology, X-ray — completed and reported the same day, one floor below.</p>
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🛋️</span>
+        <span class="img-label">Deluxe room photo</span>
+      </div>
+      <h4>Deluxe Rooms</h4>
+      <div class="facility-sub">Inpatient Recovery &amp; Rest</div>
+      <p>Comfortable private recovery rooms for you and your family after delivery or surgery.</p>
+    </div>
+
+    <div class="facility-card">
+      <div class="facility-photo-box">
+        <span class="img-icon" style="font-size: 24px; opacity: 0.3;">🤰</span>
+        <span class="img-label">ANC consultation photo</span>
+      </div>
+      <h4>Antenatal Care</h4>
+      <div class="facility-sub">Full Pregnancy Journey</div>
+      <p>Every check-up, every scan, every question — managed in one place, from your first visit to delivery day.</p>
+    </div>
+
+  </div>
+
+  <div class="facilities-footer-quote">
+    <p>Ridhisha Tower, Sector 23 — One Address. Complete Care.</p>
+    <span>From your first scan to your baby's first check-up — every step is inside this building.</span>
+  </div>
+
+  <div class="vaibhavi-standard">
+    <div class="vaibhavi-standard-icon">💬</div>
+    <div>
+      <p>"Your baby's complete care is here. Every diagnostic test is in this building. Your insurance paperwork — handled by our receptionist."</p>
+      <cite>— The Vaibhavi Standard</cite>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- THURSDAY CAMP -->
+<div class="thursday-section">
+  <div class="thursday-inner">
+    <div>
+      <div class="thursday-badges">
+        <span class="thursday-badge">Every Thursday</span>
+        <span class="thursday-badge">Free</span>
+        <span class="thursday-badge">For Every Woman in Taloja</span>
+      </div>
+      <h2>Free Women's Health Check-Up</h2>
+      <p class="thursday-sub">Walk In. Your Visit Is Welcome.</p>
+      <p>Walk in. Ask every question you've been putting off.<br>You bring the concern — we bring the care.</p>
+      <p>Whether the concern feels serious or small — this Thursday is exactly the right time. Every woman is welcome. Every question deserves an answer.</p>
+      <div class="thursday-location">
+        <span>📍</span>
+        <span>Vaibhavi Hospital · Sector 23, Taloja Phase 2 · Every Thursday</span>
+      </div>
+      <div class="thursday-actions">
+        <button class="btn-white">Walk In This Thursday</button>
+        <button class="btn-outline-white">WhatsApp 7039330945</button>
+      </div>
+    </div>
+    <div class="thursday-image-box">
+      <span style="font-size: 32px; opacity: 0.4;">📷</span>
+      <span class="img-label">Thursday camp photo</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="section-label">What Our Patients Say</div>
+  <h2 style="font-size: 40px; font-weight: 700; margin-bottom: 40px;">Patients Who Trust Vaibhavi Hospital</h2>
+
+  <!-- Hero review -->
+  <div class="hero-review">
+    <p>"She treated me when no one else could help. I named my daughter Vaibhavi — because she gave her to me."</p>
+    <cite>— Patient, Taloja Phase 2</cite>
+  </div>
+
+  <!-- 3 reviews -->
+  <div class="reviews-grid">
+    <div class="review-card">
+      <p>"I was nervous about my pregnancy, but Dr. Vaibhavi sat with me and explained every single finding from my scan. I walked out understanding everything. That had never happened before."</p>
+      <span class="review-placeholder">GOOGLE REVIEW PLACEHOLDER — replace with verified review before launch</span>
+    </div>
+    <div class="review-card">
+      <p>"From my blood tests to my sonography to my delivery — everything happened in the same building. I never had to go anywhere else. That meant everything."</p>
+      <span class="review-placeholder">GOOGLE REVIEW PLACEHOLDER — replace with verified review before launch</span>
+    </div>
+    <div class="review-card">
+      <p>"My neighbour referred me to Dr. Vaibhavi. I wasn't sure about a new hospital. But from the first visit, it was clear — this doctor is different. She listens. Completely."</p>
+      <span class="review-placeholder">GOOGLE REVIEW PLACEHOLDER — replace with verified review before launch</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- APPOINTMENT CTA -->
+<div class="appointment-section">
+  <div class="appointment-inner">
+    <div>
+      <div class="appt-eyebrow">Vaibhavi Hospital Is Ready. So Is Your Care.</div>
+      <h2>Book Your Appointment</h2>
+      <p>Bring your Mediclaim card — our team handles all coordination with your insurance provider from the moment you arrive to the day you're discharged. Call us, send a WhatsApp, or simply walk in.</p>
+      <div class="appt-actions">
+        <button class="btn-white">Call 7039330945</button>
+        <button class="btn-outline-white">WhatsApp 7039330945</button>
+      </div>
+      <div class="appt-address">
+        <span>📍</span>
+        <span>Ridhisha Tower, Sector 23 · Behind Pendhar Metro Station · Taloja Phase 2, Navi Mumbai — 410 208</span>
+      </div>
+    </div>
+    <div class="hours-card">
+      <div class="hour-row">
+        <span class="hour-label">Morning OPD</span>
+        <span class="hour-value">9 AM – 12 PM</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-label">Evening OPD</span>
+        <span class="hour-value">5 PM – 10 PM</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-label">Emergency</span>
+        <span class="hour-value"><span class="hour-badge">24/7</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Vaibhavi Hospital</div>
+      <div class="footer-brand-tag">Where Healthcare Meets Humanity</div>
+      <p class="footer-brand-desc">Taloja's women's and maternity hospital where every medical need is handled inside one building, by one doctor who explains everything.</p>
+      <div class="footer-badge">Govt. Recognised MTP &amp; TL Centre</div>
+      <div class="footer-website">🌐 vaibhavihospitaltaloja.in</div>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Maternity Care</a></li>
+        <li><a href="#">High-Risk Pregnancy</a></li>
+        <li><a href="#">NICU &amp; ICU</a></li>
+        <li><a href="#">PCOD Treatment</a></li>
+        <li><a href="#">Infertility Care</a></li>
+        <li><a href="#">Diagnostics</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <ul>
+        <li><a href="#">Dr. Vaibhavi Birle</a></li>
+        <li><a href="#">Our Facilities</a></li>
+        <li><a href="#">Thursday Camp</a></li>
+        <li><a href="#">Mediclaim Info</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <div class="contact-item"><span class="contact-item-icon">📞</span><span>7039330945</span></div>
+      <div class="contact-item"><span class="contact-item-icon">💬</span><span>WhatsApp 7039330945</span></div>
+      <div class="contact-item"><span class="contact-item-icon">📍</span><span>Ridhisha Tower, Sector 23, Taloja Phase 2</span></div>
+      <div class="contact-item"><span class="contact-item-icon">🚨</span><span>Emergency 24/7</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Vaibhavi Hospital, Taloja Phase 2. All rights reserved.</span>
+    <span>vaibhavihospitaltaloja.in</span>
+  </div>
+</footer>
+
+
+</body>
+</html>

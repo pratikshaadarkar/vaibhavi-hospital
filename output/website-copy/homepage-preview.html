@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vaibhavi Hospital — Where Healthcare Meets Humanity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #fff; -webkit-font-smoothing: antialiased; }
+    .serif { font-family: 'Playfair Display', Georgia, serif !important; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+    const G = '#39892F', B = '#00338E';
+    const GL = '#EBF6E9', BL = '#EEF3FB';
+    const BODY = '#475569', HEADING = '#0f172a', MUTED = '#94a3b8', BORDER = '#e2e8f0';
+    const CARD_SHADOW = '0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.05)';
+
+    /* SVG icon helper */
+    const Ico = ({ d, size=24, stroke='currentColor', sw=1.5, fill='none' }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill={fill}
+        stroke={stroke} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+        {(Array.isArray(d) ? d : [d]).map((p,i) => <path key={i} d={p}/>)}
+      </svg>
+    );
+
+    /* Label chip above headings */
+    const Label = ({ text, color=G }) => (
+      <div style={{display:'inline-block',color,fontSize:11,fontWeight:700,letterSpacing:'0.14em',
+        textTransform:'uppercase',marginBottom:14,borderLeft:`3px solid ${color}`,paddingLeft:10}}>
+        {text}
+      </div>
+    );
+
+    /* Divider line */
+    const Div = ({ style={} }) => <div style={{height:1,background:BORDER,...style}}/>;
+
+    /* ── NAVBAR ── */
+    const Navbar = () => (
+      <nav style={{position:'sticky',top:0,zIndex:50,background:'#fff',borderBottom:`1px solid ${BORDER}`}}>
+        <div style={{maxWidth:1200,margin:'0 auto',padding:'0 40px',display:'flex',
+          alignItems:'center',justifyContent:'space-between',height:72}}>
+          {/* Logo */}
+          <div style={{display:'flex',alignItems:'center',gap:14}}>
+            <div style={{width:38,height:38,borderRadius:'50%',background:G,
+              display:'flex',alignItems:'center',justifyContent:'center'}}>
+              <span className="serif" style={{color:'#fff',fontWeight:700,fontSize:19}}>V</span>
+            </div>
+            <div>
+              <div className="serif" style={{color:HEADING,fontWeight:700,fontSize:18,lineHeight:1.15}}>Vaibhavi Hospital</div>
+              <div style={{color:MUTED,fontSize:10,letterSpacing:'0.1em',textTransform:'uppercase'}}>Where Healthcare Meets Humanity</div>
+            </div>
+          </div>
+          {/* Nav links */}
+          <div style={{display:'flex',alignItems:'center',gap:32}}>
+            {['Home','About','Services','Facilities','Thursday Camp'].map(item=>(
+              <a key={item} href="#" style={{color:'#374151',fontSize:13.5,fontWeight:500,textDecoration:'none'}}>{item}</a>
+            ))}
+          </div>
+          {/* Right actions */}
+          <div style={{display:'flex',alignItems:'center',gap:20}}>
+            <a href="tel:7039330945" style={{color:G,fontSize:13.5,fontWeight:600,textDecoration:'none'}}>
+              7039330945
+            </a>
+            <a href="#" style={{background:G,color:'#fff',padding:'9px 20px',borderRadius:6,
+              fontSize:13.5,fontWeight:600,textDecoration:'none',letterSpacing:'0.01em'}}>
+              Book Appointment
+            </a>
+          </div>
+        </div>
+      </nav>
+    );
+
+    /* ── HERO ── */
+    const Hero = () => (
+      <section style={{background:'#fff',minHeight:'91vh',display:'flex',alignItems:'center'}}>
+        <div style={{maxWidth:1200,margin:'0 auto',padding:'72px 40px',
+          display:'grid',gridTemplateColumns:'1fr 1fr',gap:72,alignItems:'center',width:'100%'}}>
+          {/* Left text */}
+          <div>
+            {/* Govt badge */}
+            <div style={{display:'inline-flex',alignItems:'center',gap:8,background:BL,
+              border:`1px solid ${B}20`,borderRadius:6,padding:'7px 14px',marginBottom:32}}>
+              <div style={{width:7,height:7,borderRadius:'50%',background:B,flexShrink:0}}/>
+              <span style={{color:B,fontSize:11,fontWeight:700,letterSpacing:'0.07em'}}>GOVT. RECOGNISED MTP &amp; TL CENTRE</span>
+            </div>
+            <h1 className="serif" style={{fontSize:52,fontWeight:700,color:HEADING,
+              lineHeight:1.1,margin:'0 0 24px',letterSpacing:'-0.02em'}}>
+              Complete Women's<br/>&amp; Maternity Care.<br/>
+              <em style={{color:G,fontStyle:'italic'}}>Everything Here.</em>
+            </h1>
+            <p style={{color:BODY,fontSize:16.5,lineHeight:1.9,margin:'0 0 36px',maxWidth:500}}>
+              From your first pregnancy check-up to your baby's first vaccine — Vaibhavi Hospital is Taloja Phase 2's women's and maternity hospital where every stage of your care happens inside one building, with one specialist who takes the time to explain.
+            </p>
+            {/* Trust chips */}
+            <div style={{display:'flex',gap:8,flexWrap:'wrap',marginBottom:40}}>
+              {['Female Gynaecologist','NICU On-Site','Emergency 24/7','Mediclaim Accepted'].map(tag=>(
+                <div key={tag} style={{display:'flex',alignItems:'center',gap:6,
+                  background:'#f8fafc',border:`1px solid ${BORDER}`,borderRadius:6,padding:'7px 13px'}}>
+                  <div style={{width:6,height:6,borderRadius:'50%',background:G,flexShrink:0}}/>
+                  <span style={{color:'#374151',fontSize:12.5,fontWeight:500}}>{tag}</span>
+                </div>
+              ))}
+            </div>
+            <Div style={{marginBottom:24}}/>
+            {/* Address */}
+            <div style={{display:'flex',alignItems:'flex-start',gap:10}}>
+              <Ico d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z M12 10a1 1 0 100-2 1 1 0 000 2z"
+                size={17} stroke={MUTED} sw={1.5}/>
+              <div>
+                <span style={{color:HEADING,fontWeight:600,fontSize:14}}>Ridhisha Tower, Sector 23</span>
+                <div style={{color:'#64748b',fontSize:13,marginTop:3,lineHeight:1.6}}>
+                  Behind Pendhar Metro Station · Taloja Phase 2 · Navi Mumbai 410 208
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Right photo card */}
+          <div style={{position:'relative'}}>
+            <div style={{borderRadius:16,overflow:'hidden',background:`linear-gradient(160deg,${GL} 0%,#c8e8c3 100%)`,
+              height:520,display:'flex',flexDirection:'column',alignItems:'center',
+              justifyContent:'center',border:`1px solid ${G}22`}}>
+              <div style={{width:110,height:110,borderRadius:'50%',background:'rgba(255,255,255,0.6)',
+                border:`2px solid ${G}40`,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:14}}>
+                <Ico d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z"
+                  size={44} stroke={G} sw={1.2}/>
+              </div>
+              <p style={{color:'#64748b',fontSize:11,textTransform:'uppercase',letterSpacing:'0.1em',margin:'0 0 4px'}}>Photo Placeholder</p>
+              <p style={{color:G,fontSize:13.5,fontWeight:600,margin:0}}>Dr. Vaibhavi in consultation</p>
+            </div>
+            {/* Floating credential card */}
+            <div style={{position:'absolute',bottom:24,left:-24,right:24,background:'#fff',
+              borderRadius:12,padding:'18px 22px',boxShadow:'0 8px 32px rgba(0,0,0,0.12)',
+              border:`1px solid ${BORDER}`}}>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:12}}>
+                <div>
+                  <p className="serif" style={{color:HEADING,fontWeight:700,fontSize:16,margin:'0 0 3px'}}>Dr. Vaibhavi Birle</p>
+                  <p style={{color:'#64748b',fontSize:12.5,margin:'0 0 10px'}}>MBBS, MS Obstetrics &amp; Gynaecology</p>
+                  <div style={{display:'flex',gap:7,flexWrap:'wrap'}}>
+                    <span style={{background:GL,color:G,fontSize:11,padding:'3px 10px',borderRadius:20,fontWeight:600,border:`1px solid ${G}22`}}>6+ Years Post-MS</span>
+                    <span style={{background:BL,color:B,fontSize:11,padding:'3px 10px',borderRadius:20,fontWeight:600,border:`1px solid ${B}22`}}>Gynaecologist</span>
+                  </div>
+                </div>
+                <div style={{width:40,height:40,borderRadius:'50%',background:GL,
+                  border:`1.5px solid ${G}30`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                  <Ico d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z"
+                    size={20} stroke={G} sw={1.5}/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ── TRUST STRIP ── */
+    const TrustStrip = () => (
+      <div style={{background:G}}>
+        <div style={{maxWidth:1200,margin:'0 auto',padding:'0 40px'}}>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)'}}>
+            {[
+              {icon:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',title:'Emergency Care',sub:'Open every hour of every day',hl:true},
+              {icon:'M8 6h13 M8 12h13 M8 18h13 M3 6h.01 M3 12h.01 M3 18h.01',title:'OPD Hours',sub:'9 AM–12 PM · 5 PM–10 PM'},
+              {icon:'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z',title:'7039330945',sub:'Call or WhatsApp — ready for you'},
+              {icon:'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z M12 10a1 1 0 100-2 1 1 0 000 2z',title:'Taloja Phase 2',sub:'Behind Pendhar Metro Station'},
+            ].map((item,i)=>(
+              <div key={i} style={{padding:'20px 28px',display:'flex',alignItems:'center',gap:14,
+                borderRight:i<3?'1px solid rgba(255,255,255,0.15)':'none',
+                background:item.hl?'rgba(0,0,0,0.1)':'transparent'}}>
+                <div style={{width:36,height:36,borderRadius:8,background:'rgba(255,255,255,0.15)',
+                  display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                  <Ico d={item.icon} size={18} stroke="white" sw={1.8}/>
+                </div>
+                <div>
+                  <div style={{color:'#fff',fontWeight:700,fontSize:14,lineHeight:1.25}}>{item.title}</div>
+                  <div style={{color:'rgba(255,255,255,0.72)',fontSize:12.5,marginTop:3}}>{item.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+
+    /* ── QUICK ACTIONS ── */
+    const QuickActionStrip = () => {
+      const actions = [
+        {label:'Book OPD Appointment',color:B,bg:BL,d:['M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','M8 7V3','M16 7V3','M3 11h18']},
+        {label:'Free Thursday Camp',  color:G,bg:GL,d:['M12 22V13','M12 13C12 9 15 5 19 4','M12 13C12 9 9 5 5 4']},
+        {label:'Book a Sonography',   color:B,bg:BL,d:['M22 12h-4l-3 9L9 3l-3 9H2']},
+        {label:'Antenatal Package',   color:G,bg:GL,d:['M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z']},
+        {label:'Mediclaim Info',      color:B,bg:BL,d:['M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18']},
+        {label:'Ask Dr. Vaibhavi',    color:G,bg:GL,d:['M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z','M12 8v3','M12 15h.01']},
+      ];
+      return (
+        <div style={{background:'#fff',borderBottom:`1px solid ${BORDER}`}}>
+          <div style={{maxWidth:1200,margin:'0 auto',padding:'0 40px',
+            display:'grid',gridTemplateColumns:'repeat(6,1fr)'}}>
+            {actions.map((a,i)=>(
+              <a key={i} href="#" style={{padding:'18px 14px',display:'flex',flexDirection:'column',
+                alignItems:'center',gap:10,textDecoration:'none',transition:'background 0.15s',
+                borderRight:i<5?`1px solid ${BORDER}`:'none'}}
+                onMouseEnter={e=>e.currentTarget.style.background='#f8fafc'}
+                onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
+                <div style={{width:38,height:38,borderRadius:8,background:a.bg,
+                  display:'flex',alignItems:'center',justifyContent:'center'}}>
+                  <Ico d={a.d} size={18} stroke={a.color} sw={1.8}/>
+                </div>
+                <span style={{color:'#374151',fontSize:11,fontWeight:600,
+                  textTransform:'uppercase',letterSpacing:'0.05em',textAlign:'center',lineHeight:1.45}}>
+                  {a.label}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    /* ── DOCTOR AUTHORITY ── */
+    const DoctorAuthority = () => (
+      <section style={{background:'#fff',padding:'96px 40px'}}>
+        <div style={{maxWidth:1200,margin:'0 auto',display:'grid',
+          gridTemplateColumns:'5fr 7fr',gap:72,alignItems:'center'}}>
+          {/* Left photo */}
+          <div style={{position:'relative'}}>
+            <div style={{borderRadius:16,overflow:'hidden',height:500,
+              background:`linear-gradient(150deg,${GL} 0%,#c9e8c5 100%)`,
+              display:'flex',flexDirection:'column',alignItems:'center',
+              justifyContent:'center',border:`1px solid ${G}20`}}>
+              <div style={{width:100,height:100,borderRadius:'50%',background:'rgba(255,255,255,0.55)',
+                border:`2px solid ${G}40`,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16}}>
+                <Ico d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z"
+                  size={40} stroke={G} sw={1.2}/>
+              </div>
+              <p className="serif" style={{color:G,fontWeight:600,fontSize:15,margin:'0 0 4px'}}>Dr. Vaibhavi Birle</p>
+              <p style={{color:'#64748b',fontSize:12,margin:0}}>Real photo needed — warm &amp; confident</p>
+            </div>
+          </div>
+          {/* Right content */}
+          <div>
+            <Label text="The Doctor Behind the Hospital"/>
+            <h2 className="serif" style={{fontSize:42,fontWeight:700,color:HEADING,
+              lineHeight:1.15,margin:'0 0 6px'}}>Dr. Vaibhavi Birle</h2>
+            <p style={{color:G,fontSize:15,fontWeight:600,margin:'0 0 28px'}}>
+              MBBS, MS Obstetrics &amp; Gynaecology &nbsp;·&nbsp; 6+ Years Post-MS
+            </p>
+            <div style={{borderLeft:`3px solid ${G}`,paddingLeft:20,marginBottom:28}}>
+              <p className="serif" style={{color:'#1e293b',fontSize:17.5,fontStyle:'italic',lineHeight:1.7,margin:0}}>
+                "She chose this field because she loves it — and it shows in every consultation."
+              </p>
+            </div>
+            <p style={{color:BODY,fontSize:15.5,lineHeight:1.9,marginBottom:18}}>
+              Dr. Vaibhavi explains what is happening with your body — and what will happen next. She uses diagrams. She asks questions. She listens carefully. You leave her room with complete clarity about your care.
+            </p>
+            <p style={{color:BODY,fontSize:15.5,lineHeight:1.9,marginBottom:32}}>
+              Her patients return — not just for the next visit, but with every woman in their family. At Vaibhavi Hospital, thorough explanation is the standard every patient receives.
+            </p>
+            <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:32}}>
+              {['MS Obstetrics & Gynaecology','6+ Years Clinical Experience','High-Risk Pregnancy Specialist','PCOD & Infertility Expert'].map(c=>(
+                <span key={c} style={{background:'#f8fafc',color:'#374151',fontSize:12.5,
+                  padding:'6px 14px',borderRadius:6,fontWeight:500,border:`1px solid ${BORDER}`}}>{c}</span>
+              ))}
+            </div>
+            <Div style={{marginBottom:24}}/>
+            <a href="#" style={{color:G,fontSize:15,fontWeight:700,textDecoration:'none',
+              display:'inline-flex',alignItems:'center',gap:8}}>
+              Meet Dr. Vaibhavi
+              <Ico d="M5 12h14 M12 5l7 7-7 7" size={17} stroke={G} sw={2}/>
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ── CARE PHILOSOPHY ── */
+    const CarePhilosophy = () => (
+      <section style={{background:'#f8fafc',padding:'96px 40px'}}>
+        <div style={{maxWidth:1200,margin:'0 auto',display:'grid',
+          gridTemplateColumns:'1fr 1fr',gap:72,alignItems:'center'}}>
+          {/* Left content */}
+          <div>
+            <Label text="The Vaibhavi Standard of Care"/>
+            <h2 className="serif" style={{fontSize:44,fontWeight:700,color:HEADING,
+              lineHeight:1.12,margin:'0 0 20px'}}>
+              Care That Goes<br/>All the Way.
+            </h2>
+            <p style={{color:BODY,fontSize:15.5,lineHeight:1.9,margin:'0 0 32px'}}>
+              At Vaibhavi Hospital, care is not something you hear. It is something you feel — from the moment you walk in, to the moment you walk out knowing exactly what comes next.
+            </p>
+            {/* Bullet points */}
+            <div style={{display:'flex',flexDirection:'column',gap:14,marginBottom:32}}>
+              {[
+                'Care that explains until you fully understand — diagrams, plain language, and every question answered before you think to ask.',
+                'Care that turns anxiety into clarity for every woman expecting.',
+                'Care that reassures a mother that her child is well, and her baby is here.',
+                'Care that comes from listening — and goes the distance.',
+              ].map((item,i)=>(
+                <div key={i} style={{display:'flex',gap:14,alignItems:'flex-start'}}>
+                  <div style={{width:20,height:20,borderRadius:'50%',background:G,flexShrink:0,marginTop:3,
+                    display:'flex',alignItems:'center',justifyContent:'center'}}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                  </div>
+                  <p style={{color:'#334155',fontSize:15,lineHeight:1.82,margin:0}}>{item}</p>
+                </div>
+              ))}
+            </div>
+            {/* Patient quotes */}
+            <div style={{background:GL,border:`1px solid ${G}22`,borderLeft:`3px solid ${G}`,
+              borderRadius:8,padding:'20px 22px',marginBottom:24}}>
+              <p style={{color:G,fontSize:10.5,fontWeight:800,margin:'0 0 12px',
+                textTransform:'uppercase',letterSpacing:'0.1em'}}>What our patients say</p>
+              {['"You explain things well."','"You listen."','"You take all our problems into consideration."'].map((q,i)=>(
+                <p key={i} className="serif" style={{color:'#1e293b',fontSize:15.5,fontStyle:'italic',
+                  margin:i<2?'0 0 6px':'0'}}>{q}</p>
+              ))}
+            </div>
+            <p className="serif" style={{color:HEADING,fontSize:16.5,fontWeight:600,margin:0,
+              paddingTop:20,borderTop:`1px solid ${BORDER}`}}>
+              End-to-end care, for every woman and her family.
+            </p>
+          </div>
+          {/* Right photo placeholder */}
+          <div style={{height:530,borderRadius:16,background:`linear-gradient(150deg,#b8dcb4 0%,#7fc47a 100%)`,
+            display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',
+            position:'relative',border:`1px solid ${G}20`}}>
+            <div style={{position:'absolute',top:20,left:20,background:'rgba(255,255,255,0.25)',
+              border:'1px solid rgba(255,255,255,0.4)',borderRadius:8,padding:'6px 14px',backdropFilter:'blur(8px)'}}>
+              <span style={{color:'#fff',fontSize:10.5,fontWeight:700,letterSpacing:'0.07em'}}>REAL PHOTO NEEDED</span>
+            </div>
+            <div style={{width:100,height:100,borderRadius:'50%',background:'rgba(255,255,255,0.3)',
+              border:'2px solid rgba(255,255,255,0.5)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:16}}>
+              <Ico d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2 M9 11a4 4 0 100-8 4 4 0 000 8z M23 21v-2a4 4 0 00-3-3.87 M16 3.13a4 4 0 010 7.75"
+                size={44} stroke="rgba(255,255,255,0.8)" sw={1.2}/>
+            </div>
+            <p style={{color:'rgba(255,255,255,0.7)',fontSize:10,textTransform:'uppercase',letterSpacing:'0.12em',margin:'0 0 4px'}}>Warm family photo</p>
+            <p style={{color:'#fff',fontSize:13.5,fontWeight:600,margin:0}}>Mother, father, baby — natural light</p>
+            <p style={{color:'rgba(255,255,255,0.65)',fontSize:12,margin:'4px 0 0'}}>Candid · Emotional · Real</p>
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ── MEET EXPERTS ── */
+    const expertsList = [
+      {
+        name:'Dr. Vaibhavi Birle',
+        role:'Obstetrician & Gynaecologist',
+        creds:'MBBS, MS Obstetrics & Gynaecology',
+        note:'6+ Years Post-MS · Founder, Vaibhavi Hospital',
+        tags:['High-Risk Pregnancy','Infertility','PCOD & PCOS','Painless Delivery','Antenatal Care'],
+        color:G, link:'Meet Dr. Vaibhavi', special:null,
+        iconD:'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z',
+      },
+      {
+        name:'Dr. Rasik Mekhale',
+        role:'Diagnostic & Ultrasound Specialist',
+        creds:'Mekhale Diagnostic Center',
+        note:'Diagnose. Define. Discover. Deliver.',
+        tags:['Obstetric Ultrasound','Colour Doppler','X-Ray & Radiology','Pathology Lab'],
+        color:B, link:'Mekhale Diagnostic Center', special:'Ground Floor · Same Building',
+        iconD:'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2 M12 11a4 4 0 100-8 4 4 0 000 8z',
+      },
+    ];
+
+    const MeetExperts = () => (
+      <section style={{background:'#fff',padding:'96px 40px'}}>
+        <div style={{maxWidth:1200,margin:'0 auto'}}>
+          {/* Header */}
+          <div style={{textAlign:'center',marginBottom:56}}>
+            <Label text="Your Care Team"/>
+            <h2 className="serif" style={{fontSize:40,fontWeight:700,color:HEADING,
+              margin:'0 0 14px',lineHeight:1.2}}>Meet the Specialists Behind Your Care</h2>
+            <p style={{color:BODY,fontSize:16,maxWidth:520,margin:'0 auto',lineHeight:1.75}}>
+              One hospital. Two specialists. Every diagnostic and clinical need — answered inside this building.
+            </p>
+          </div>
+          {/* Cards */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:24,maxWidth:860,margin:'0 auto'}}>
+            {expertsList.map((e,i)=>(
+              <div key={i}
+                style={{background:'#fff',borderRadius:16,overflow:'hidden',
+                  boxShadow:CARD_SHADOW,border:`1px solid ${BORDER}`,
+                  transition:'transform 0.2s,box-shadow 0.2s'}}
+                onMouseEnter={el=>{el.currentTarget.style.transform='translateY(-4px)';
+                  el.currentTarget.style.boxShadow='0 16px 40px rgba(0,0,0,0.1)';}}
+                onMouseLeave={el=>{el.currentTarget.style.transform='translateY(0)';
+                  el.currentTarget.style.boxShadow=CARD_SHADOW;}}>
+                {/* Photo zone */}
+                <div style={{height:260,background:`linear-gradient(160deg,${e.color}12 0%,${e.color}06 100%)`,
+                  display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',
+                  position:'relative',borderBottom:`2px solid ${e.color}20`}}>
+                  {e.special && (
+                    <div style={{position:'absolute',top:14,right:14,background:e.color,
+                      color:'#fff',fontSize:10,fontWeight:700,padding:'4px 12px',
+                      borderRadius:20,letterSpacing:'0.07em',textTransform:'uppercase'}}>
+                      {e.special}
+                    </div>
+                  )}
+                  <div style={{width:110,height:110,borderRadius:'50%',background:'#fff',
+                    border:`2px solid ${e.color}30`,display:'flex',alignItems:'center',
+                    justifyContent:'center',boxShadow:`0 4px 16px ${e.color}18`,marginBottom:10}}>
+                    <Ico d={e.iconD} size={44} stroke={e.color} sw={1.2}/>
+                  </div>
+                  <p style={{color:MUTED,fontSize:10,margin:0,textTransform:'uppercase',letterSpacing:'0.1em'}}>Photo placeholder</p>
+                </div>
+                {/* Info */}
+                <div style={{padding:'24px 26px'}}>
+                  <h3 className="serif" style={{color:HEADING,fontSize:22,fontWeight:700,
+                    margin:'0 0 4px',lineHeight:1.2}}>{e.name}</h3>
+                  <p style={{color:e.color,fontSize:13.5,fontWeight:700,margin:'0 0 3px'}}>{e.role}</p>
+                  <p style={{color:'#64748b',fontSize:13,margin:'0 0 1px'}}>{e.creds}</p>
+                  <p className="serif" style={{color:MUTED,fontSize:12.5,fontStyle:'italic',margin:'0 0 16px'}}>{e.note}</p>
+                  <div style={{display:'flex',flexWrap:'wrap',gap:7,marginBottom:20}}>
+                    {e.tags.map(t=>(
+                      <span key={t} style={{background:`${e.color}0e`,color:e.color,
+                        border:`1px solid ${e.color}20`,fontSize:11,padding:'3px 11px',
+                        borderRadius:20,fontWeight:600}}>{t}</span>
+                    ))}
+                  </div>
+                  <Div style={{marginBottom:16}}/>
+                  <a href="#" style={{display:'inline-flex',alignItems:'center',gap:7,
+                    color:e.color,fontSize:14,fontWeight:700,textDecoration:'none'}}>
+                    {e.link}
+                    <Ico d="M5 12h14 M12 5l7 7-7 7" size={15} stroke={e.color} sw={2}/>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ── SERVICES GRID ── */
+    const svcList = [
+      {title:'Painless Delivery',    desc:'Your comfort during labour is your right. Epidural relief available for a fully supported birth.',                  color:B, d:['M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z']},
+      {title:'High-Risk Pregnancy',  desc:'More attention, not more anxiety. ICU and NICU on-site give you complete, uninterrupted care.',                     color:G, d:['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z','M9 12l2 2 4-4']},
+      {title:'NICU & ICU On-Site',   desc:"Your baby's neonatal care and your critical care — both fully staffed inside this building.",                       color:B, d:['M22 12h-4l-3 9L9 3l-3 9H2']},
+      {title:'PCOD & PCOS',          desc:'Treat the cause, not just the symptoms. Full hormonal care with clear explanations at every step.',                 color:G, d:['M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z','M12 8v4l3 3']},
+      {title:'All Diagnostics Here', desc:'Sonography, pathology, radiology — on the ground floor of this building. Walk down, walk back up with results.',   color:B, d:['M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18']},
+      {title:'Infertility Care',     desc:'A doctor who listens, keeps trying, and explains. We are with you through every step of this journey.',             color:G, d:['M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z']},
+    ];
+
+    const ServicesGrid = () => (
+      <section style={{background:'#f8fafc',padding:'96px 40px'}}>
+        <div style={{maxWidth:1200,margin:'0 auto'}}>
+          {/* Top header row */}
+          <div style={{display:'grid',gridTemplateColumns:'5fr 7fr',gap:64,
+            alignItems:'flex-end',marginBottom:48}}>
+            <div>
+              <Label text="Clinical Services" color={B}/>
+              <h2 className="serif" style={{fontSize:42,fontWeight:700,color:HEADING,
+                lineHeight:1.15,margin:'0 0 16px'}}>Services Designed<br/>Around You</h2>
+              <p style={{color:BODY,fontSize:15.5,lineHeight:1.85,margin:0}}>
+                Complete obstetric and gynaecological care — from your first antenatal check-up to your baby's NICU stay. Every specialist, every test, every facility is here.
+              </p>
+            </div>
+            <div style={{textAlign:'right',paddingBottom:4}}>
+              <a href="#" style={{display:'inline-flex',alignItems:'center',gap:8,background:B,
+                color:'#fff',padding:'12px 26px',borderRadius:6,fontSize:14,fontWeight:600,
+                textDecoration:'none'}}>
+                View All Services
+                <Ico d="M5 12h14 M12 5l7 7-7 7" size={16} stroke="white" sw={2}/>
+              </a>
+            </div>
+          </div>
+          {/* Card grid */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
+            {svcList.map((s,i)=>(
+              <div key={i}
+                style={{background:'#fff',borderRadius:12,padding:'28px 24px',
+                  boxShadow:CARD_SHADOW,border:`1px solid ${BORDER}`,
+                  borderTop:`3px solid ${s.color}`,transition:'transform 0.2s,box-shadow 0.2s',cursor:'pointer'}}
+                onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)';
+                  e.currentTarget.style.boxShadow='0 12px 32px rgba(0,0,0,0.09)';}}
+                onMouseLeave={e=>{e.currentTarget.style.transform='translateY(0)';
+                  e.currentTarget.style.boxShadow=CARD_SHADOW;}}>
+                <div style={{width:42,height:42,borderRadius:8,
+                  background:s.color===G?GL:BL,display:'flex',alignItems:'center',
+                  justifyContent:'center',marginBottom:16}}>
+                  <Ico d={s.d} size={22} stroke={s.color} sw={1.8}/>
+                </div>
+                <h3 style={{color:HEADING,fontSize:15,fontWeight:700,margin:'0 0 10px',lineHeight:1.3}}>{s.title}</h3>
+                <p style={{color:BODY,fontSize:13.5,lineHeight:1.75,margin:0}}>{s.desc}</p>
+              </div>
+            ))}
+          </div>
+          {/* Footer note */}
+          <div style={{marginTop:40,padding:'20px 28px',background:'#fff',borderRadius:10,
+            border:`1px solid ${BORDER}`,display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:16}}>
+            <p style={{color:BODY,fontSize:15,margin:0,fontWeight:500}}>
+              Have a question about which service is right for you?
+            </p>
+            <a href="tel:7039330945" style={{color:G,fontSize:15,fontWeight:700,textDecoration:'none',
+              display:'flex',alignItems:'center',gap:8}}>
+              Call us — 7039330945
+              <Ico d="M5 12h14 M12 5l7 7-7 7" size={16} stroke={G} sw={2}/>
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ── FACILITIES ── */
+    const FacilitiesSection = () => {
+      const facilities = [
+        {label:'NICU',               sub:'Neonatal Stabilization On-Site',    color:B, d:['M22 12h-4l-3 9L9 3l-3 9H2']},
+        {label:'ICU',                sub:'Adult Intensive Care · 24/7',        color:B, d:['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z','M9 12l2 2 4-4']},
+        {label:'Operation Theatre',  sub:'Surgical Readiness · LSCS & Gynae', color:'#374151', d:['M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z']},
+        {label:'24/7 Emergency',     sub:'Critical Care · Always Ready',       color:'#b91c1c', d:['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z']},
+        {label:'Delivery Room',      sub:'Labour & Delivery Suite',            color:G, d:['M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z']},
+        {label:'Mekhale Diagnostics',sub:'Ground Floor · Same Building',       color:G, d:['M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18'],badge:true},
+        {label:'Deluxe Rooms',       sub:'Inpatient Recovery & Rest',          color:'#6d28d9', d:['M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z','M9 22V12h6v10']},
+        {label:'Antenatal Care',     sub:'Full Pregnancy Journey',             color:G, d:['M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z','M12 8v4l3 3']},
+      ];
+      return (
+        <section style={{background:BL,padding:'96px 40px'}}>
+          <div style={{maxWidth:1200,margin:'0 auto'}}>
+            {/* Header */}
+            <div style={{textAlign:'center',marginBottom:52}}>
+              <Label text="The Vaibhavi Standard" color={B}/>
+              <h2 className="serif" style={{fontSize:42,fontWeight:700,color:HEADING,
+                margin:'0 0 14px',lineHeight:1.15}}>Everything Under One Roof</h2>
+              <p style={{color:BODY,fontSize:16,maxWidth:560,margin:'0 auto',lineHeight:1.8}}>
+                ICU, NICU, Operation Theatre, diagnostics, and recovery rooms — all within Ridhisha Tower, Sector 23. Your care journey stays complete, in this building.
+              </p>
+            </div>
+            {/* Address banner */}
+            <div style={{background:`linear-gradient(135deg,${B} 0%,#0041b3 100%)`,borderRadius:12,
+              padding:'18px 28px',marginBottom:40,display:'flex',alignItems:'center',
+              justifyContent:'space-between',flexWrap:'wrap',gap:16}}>
+              <div style={{display:'flex',alignItems:'center',gap:14}}>
+                <div style={{width:36,height:36,borderRadius:8,background:'rgba(255,255,255,0.15)',
+                  display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                  <Ico d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z M9 22V12h6v10" size={18} stroke="white" sw={1.8}/>
+                </div>
+                <div>
+                  <p style={{color:'#fff',fontWeight:700,fontSize:15.5,margin:'0 0 3px'}}>
+                    Ridhisha Tower, Sector 23 — One Address. Complete Care.
+                  </p>
+                  <p style={{color:'rgba(255,255,255,0.68)',fontSize:13,margin:0}}>
+                    From your first scan to your baby's first check-up — every step is inside this building.
+                  </p>
+                </div>
+              </div>
+              <div style={{display:'flex',gap:8,flexWrap:'wrap',flexShrink:0}}>
+                {['ICU','NICU','OT','Diagnostics','Rooms'].map(t=>(
+                  <span key={t} style={{background:'rgba(255,255,255,0.13)',border:'1px solid rgba(255,255,255,0.25)',
+                    color:'#fff',fontSize:12,padding:'5px 12px',borderRadius:20,fontWeight:700}}>✓ {t}</span>
+                ))}
+              </div>
+            </div>
+            {/* 4x2 facility grid */}
+            <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:14,marginBottom:40}}>
+              {facilities.map((f,i)=>(
+                <div key={i} style={{background:'#fff',borderRadius:10,padding:'22px 18px',
+                  border:`1px solid ${BORDER}`,boxShadow:CARD_SHADOW,
+                  borderTop:`2.5px solid ${f.color}`}}>
+                  <div style={{width:38,height:38,borderRadius:8,
+                    background:f.color===B?BL:f.color==='#b91c1c'?'#fef2f2':f.color===G?GL:'#f5f3ff',
+                    display:'flex',alignItems:'center',justifyContent:'center',marginBottom:14}}>
+                    <Ico d={f.d} size={20} stroke={f.color} sw={1.8}/>
+                  </div>
+                  <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:6}}>
+                    <div>
+                      <p style={{color:HEADING,fontSize:14,fontWeight:700,margin:'0 0 4px',lineHeight:1.25}}>{f.label}</p>
+                      <p style={{color:MUTED,fontSize:12,lineHeight:1.5,margin:0}}>{f.sub}</p>
+                    </div>
+                    {f.badge && (
+                      <span style={{background:GL,color:G,fontSize:9,fontWeight:800,padding:'2px 7px',
+                        borderRadius:10,flexShrink:0,letterSpacing:'0.05em',border:`1px solid ${G}22`,textTransform:'uppercase',marginTop:1}}>
+                        Same Bldg
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Moat quote */}
+            <div style={{background:'#fff',border:`1px solid ${BORDER}`,borderLeft:`4px solid ${G}`,
+              borderRadius:10,padding:'24px 32px',maxWidth:760,margin:'0 auto'}}>
+              <p className="serif" style={{color:HEADING,fontSize:18,fontStyle:'italic',
+                margin:'0 0 10px',lineHeight:1.65}}>
+                "Your baby's complete care is here. Every diagnostic test is in this building. Your insurance paperwork — handled by our receptionist."
+              </p>
+              <p style={{color:G,fontWeight:700,fontSize:11.5,margin:0,letterSpacing:'0.08em',textTransform:'uppercase'}}>
+                The Vaibhavi Standard — Complete, In-House Care
+              </p>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    /* ── THURSDAY CAMP ── */
+    const ThursdayCamp = () => (
+      <section style={{background:G,padding:'88px 40px'}}>
+        <div style={{maxWidth:680,margin:'0 auto',textAlign:'center'}}>
+          <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(255,255,255,0.15)',
+            border:'1px solid rgba(255,255,255,0.25)',borderRadius:20,padding:'5px 14px',marginBottom:24}}>
+            <div style={{width:7,height:7,borderRadius:'50%',background:'#fff',flexShrink:0}}/>
+            <span style={{color:'#fff',fontSize:11,fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase'}}>Every Thursday · Free · For Every Woman in Taloja</span>
+          </div>
+          <h2 className="serif" style={{fontSize:42,fontWeight:700,color:'#fff',margin:'0 0 8px',lineHeight:1.18}}>
+            Free Women's Health Check-Up
+          </h2>
+          <p className="serif" style={{color:'rgba(255,255,255,0.85)',fontSize:20,fontStyle:'italic',margin:'0 0 32px'}}>
+            Walk In, Your Visit is Welcome
+          </p>
+          <div style={{background:'rgba(255,255,255,0.1)',border:'1px solid rgba(255,255,255,0.2)',
+            borderRadius:12,padding:'28px 32px',marginBottom:32,textAlign:'left'}}>
+            <p style={{color:'#fff',fontSize:17,lineHeight:1.9,margin:'0 0 16px',fontWeight:500}}>
+              Walk in. Ask every question you've been putting off.<br/>You bring the concern — we bring the care.
+            </p>
+            <p style={{color:'rgba(255,255,255,0.78)',fontSize:14.5,lineHeight:1.8,margin:0}}>
+              Whether you have a question you've been delaying for months, or a concern that doesn't feel "serious enough" — this Thursday is exactly the right time. Every woman is welcome. Every question deserves an answer.
+            </p>
+          </div>
+          <div style={{display:'inline-flex',alignItems:'center',gap:8,marginBottom:32,
+            background:'rgba(0,0,0,0.12)',borderRadius:8,padding:'10px 18px'}}>
+            <Ico d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z M12 10a1 1 0 100-2 1 1 0 000 2z"
+              size={16} stroke="rgba(255,255,255,0.8)" sw={1.8}/>
+            <span style={{color:'rgba(255,255,255,0.9)',fontSize:13.5,fontWeight:600}}>
+              Vaibhavi Hospital · Sector 23, Taloja Phase 2 · Every Thursday
+            </span>
+          </div>
+          <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap'}}>
+            <a href="#" style={{background:'#fff',color:G,padding:'13px 30px',borderRadius:6,
+              fontSize:14.5,fontWeight:700,textDecoration:'none',display:'inline-flex',alignItems:'center',gap:8}}>
+              <Ico d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2 M9 11a4 4 0 100-8 4 4 0 000 8z"
+                size={17} stroke={G} sw={2}/> Walk In This Thursday
+            </a>
+            <a href="https://wa.me/917039330945" style={{background:'#25D366',color:'#fff',
+              padding:'13px 30px',borderRadius:6,fontSize:14.5,fontWeight:700,
+              textDecoration:'none',display:'inline-flex',alignItems:'center',gap:8}}>
+              <Ico d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                size={17} stroke="white" sw={2}/> WhatsApp: 7039330945
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ── SOCIAL PROOF ── */
+    const reviews = [
+      {name:'Anjali R.',text:'Dr. Vaibhavi explains everything so clearly. I knew exactly what to expect at every stage. I had never felt so informed during pregnancy.'},
+      {name:'Priya M.',text:'The doctor actually listened to us, every single visit. All our tests were done right here — sonography, blood work, everything. No running around at all.'},
+      {name:'Sunita K.',text:'Someone we know referred us to Vaibhavi Hospital and we are so grateful we came. The level of attention and care here is unlike anything we experienced before.'},
+    ];
+    const Stars = () => (
+      <div style={{display:'flex',gap:3,marginBottom:14}}>
+        {[...Array(5)].map((_,i)=>(
+          <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill={G}>
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        ))}
+      </div>
+    );
+    const SocialProof = () => (
+      <section style={{background:'#fff',padding:'96px 40px'}}>
+        <div style={{maxWidth:1200,margin:'0 auto'}}>
+          {/* Pull quote */}
+          <div style={{background:`linear-gradient(135deg,${GL} 0%,#dff5db 100%)`,borderRadius:16,
+            padding:'52px 56px',marginBottom:72,position:'relative',overflow:'hidden',
+            border:`1px solid ${G}18`,textAlign:'center'}}>
+            <div style={{position:'absolute',top:16,left:24,color:G,fontSize:88,lineHeight:1,
+              opacity:0.12,fontFamily:'Georgia,serif',userSelect:'none',pointerEvents:'none'}}>"</div>
+            <div style={{position:'absolute',bottom:16,right:24,color:G,fontSize:88,lineHeight:1,
+              opacity:0.12,fontFamily:'Georgia,serif',transform:'rotate(180deg)',
+              userSelect:'none',pointerEvents:'none'}}>"</div>
+            <p className="serif" style={{fontSize:26,color:HEADING,fontStyle:'italic',lineHeight:1.68,
+              maxWidth:660,margin:'0 auto 24px',position:'relative',zIndex:1}}>
+              "She treated me when no one else could help.<br/>I named my daughter Vaibhavi — because she gave her to me."
+            </p>
+            <p style={{color:G,fontWeight:700,fontSize:14,margin:'0 0 6px',position:'relative',zIndex:1}}>— Patient, Taloja Phase 2</p>
+            <p style={{color:MUTED,fontSize:12,margin:0,fontStyle:'italic',position:'relative',zIndex:1}}>
+              *(Name shared with permission — patient consent pending for public publication)
+            </p>
+          </div>
+          {/* Reviews header */}
+          <div style={{textAlign:'center',marginBottom:40}}>
+            <Label text="Patient Stories"/>
+            <h2 className="serif" style={{fontSize:38,fontWeight:700,color:HEADING,margin:0}}>What Women Say</h2>
+          </div>
+          {/* Review cards */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:20,marginBottom:28}}>
+            {reviews.map((r,i)=>(
+              <div key={i} style={{background:'#fff',border:`1px solid ${BORDER}`,borderRadius:12,
+                padding:'28px',boxShadow:CARD_SHADOW}}>
+                <Stars/>
+                <p className="serif" style={{color:'#334155',fontSize:15.5,lineHeight:1.85,
+                  margin:'0 0 24px',fontStyle:'italic'}}>"{r.text}"</p>
+                <Div style={{marginBottom:18}}/>
+                <div style={{display:'flex',alignItems:'center',gap:12}}>
+                  <div style={{width:38,height:38,borderRadius:'50%',background:GL,
+                    display:'flex',alignItems:'center',justifyContent:'center',
+                    color:G,fontWeight:700,fontSize:16,flexShrink:0,border:`1px solid ${G}22`}}>
+                    {r.name[0]}
+                  </div>
+                  <div>
+                    <div style={{color:HEADING,fontWeight:700,fontSize:14}}>{r.name}</div>
+                    <div style={{color:MUTED,fontSize:12}}>Verified Patient</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{textAlign:'center'}}>
+            <p style={{color:MUTED,fontSize:12.5,fontStyle:'italic',margin:0}}>
+              ⚠️ Real Google reviews pending — Business profile link to be confirmed with Dr. Vaibhavi
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+
+    /* ── APPOINTMENT CTA ── */
+    const AppointmentCTA = () => (
+      <section style={{background:`linear-gradient(140deg,${B} 0%,#0041b3 100%)`,padding:'88px 40px'}}>
+        <div style={{maxWidth:760,margin:'0 auto',textAlign:'center'}}>
+          <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(255,255,255,0.12)',
+            border:'1px solid rgba(255,255,255,0.2)',borderRadius:20,padding:'5px 14px',marginBottom:24}}>
+            <div style={{width:7,height:7,borderRadius:'50%',background:'rgba(255,255,255,0.7)',flexShrink:0}}/>
+            <span style={{color:'rgba(255,255,255,0.85)',fontSize:11,fontWeight:700,letterSpacing:'0.1em',textTransform:'uppercase'}}>Vaibhavi Hospital Is Ready. So Is Your Care.</span>
+          </div>
+          <h2 className="serif" style={{fontSize:42,fontWeight:700,color:'#fff',
+            margin:'0 0 16px',lineHeight:1.18}}>Book Your Appointment</h2>
+          <p style={{color:'rgba(255,255,255,0.78)',fontSize:17,margin:'0 0 40px',lineHeight:1.8}}>
+            Call, WhatsApp, or walk in — we make it simple.<br/>Our team is ready to guide you.
+          </p>
+          {/* CTAs */}
+          <div style={{display:'flex',gap:14,justifyContent:'center',flexWrap:'wrap',marginBottom:48}}>
+            <a href="tel:7039330945" style={{background:'#fff',color:B,padding:'14px 32px',
+              borderRadius:6,fontSize:15.5,fontWeight:700,textDecoration:'none',
+              display:'inline-flex',alignItems:'center',gap:10}}>
+              <Ico d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                size={18} stroke={B} sw={2}/>
+              Call 7039330945
+            </a>
+            <a href="https://wa.me/917039330945" style={{background:'#25D366',color:'#fff',
+              padding:'14px 32px',borderRadius:6,fontSize:15.5,fontWeight:700,
+              textDecoration:'none',display:'inline-flex',alignItems:'center',gap:10}}>
+              <Ico d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+                size={18} stroke="white" sw={2}/>
+              WhatsApp 7039330945
+            </a>
+          </div>
+          {/* OPD times */}
+          <div style={{borderTop:'1px solid rgba(255,255,255,0.14)',paddingTop:32,marginBottom:24}}>
+            <div style={{display:'flex',justifyContent:'center',gap:0,flexWrap:'wrap'}}>
+              {[{label:'Morning OPD',val:'9 AM – 12 PM'},{label:'Evening OPD',val:'5 PM – 10 PM'},{label:'Emergency',val:'24 / 7'}].map((item,i,arr)=>(
+                <div key={i} style={{textAlign:'center',padding:'0 32px',
+                  borderRight:i<arr.length-1?'1px solid rgba(255,255,255,0.16)':'none'}}>
+                  <div style={{color:'rgba(255,255,255,0.5)',fontSize:11,textTransform:'uppercase',
+                    letterSpacing:'0.1em',marginBottom:6}}>{item.label}</div>
+                  <div style={{color:'#fff',fontWeight:700,fontSize:17}}>{item.val}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p style={{color:'rgba(255,255,255,0.52)',fontSize:13.5,lineHeight:1.7,margin:0}}>
+            Ridhisha Tower, Sector 23 · Behind Pendhar Metro Station<br/>Taloja Phase 2, Navi Mumbai — 410 208
+          </p>
+        </div>
+      </section>
+    );
+
+    /* ── FOOTER ── */
+    const Footer = () => (
+      <footer style={{background:'#0a0f1e',padding:'56px 40px 28px'}}>
+        <div style={{maxWidth:1200,margin:'0 auto'}}>
+          <div style={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr 1fr',gap:48,marginBottom:48}}>
+            <div>
+              <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:20}}>
+                <div style={{width:36,height:36,borderRadius:'50%',background:G,
+                  display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                  <span className="serif" style={{color:'#fff',fontWeight:700,fontSize:18}}>V</span>
+                </div>
+                <span className="serif" style={{color:'#fff',fontWeight:700,fontSize:18}}>Vaibhavi Hospital</span>
+              </div>
+              <p style={{color:'rgba(255,255,255,0.45)',fontSize:14,lineHeight:1.8,margin:'0 0 16px',maxWidth:260}}>
+                Taloja's women's and maternity hospital where every medical need is handled inside one building, by one doctor who explains everything.
+              </p>
+              <p style={{color:'rgba(255,255,255,0.3)',fontSize:12,margin:'0 0 6px'}}>Govt. Recognised MTP &amp; TL Centre</p>
+              <p style={{color:G,fontSize:12.5,fontWeight:600,margin:0}}>vaibhavihospitaltaloja.in</p>
+            </div>
+            <div>
+              <h4 style={{color:'rgba(255,255,255,0.7)',fontWeight:600,fontSize:11.5,
+                margin:'0 0 18px',textTransform:'uppercase',letterSpacing:'0.1em'}}>Services</h4>
+              {['Maternity Care','High-Risk Pregnancy','NICU & ICU','PCOD Treatment','Infertility Care','Diagnostics'].map(l=>(
+                <div key={l} style={{marginBottom:11}}>
+                  <a href="#" style={{color:'rgba(255,255,255,0.4)',fontSize:13.5,textDecoration:'none'}}>{l}</a>
+                </div>
+              ))}
+            </div>
+            <div>
+              <h4 style={{color:'rgba(255,255,255,0.7)',fontWeight:600,fontSize:11.5,
+                margin:'0 0 18px',textTransform:'uppercase',letterSpacing:'0.1em'}}>About</h4>
+              {['Dr. Vaibhavi Birle','Our Facilities','Thursday Camp','Mediclaim Info','Contact Us'].map(l=>(
+                <div key={l} style={{marginBottom:11}}>
+                  <a href="#" style={{color:'rgba(255,255,255,0.4)',fontSize:13.5,textDecoration:'none'}}>{l}</a>
+                </div>
+              ))}
+            </div>
+            <div>
+              <h4 style={{color:'rgba(255,255,255,0.7)',fontWeight:600,fontSize:11.5,
+                margin:'0 0 18px',textTransform:'uppercase',letterSpacing:'0.1em'}}>Contact</h4>
+              <div style={{color:'rgba(255,255,255,0.45)',fontSize:13.5,lineHeight:1.9}}>
+                <p style={{margin:'0 0 8px'}}>📞 7039330945</p>
+                <p style={{margin:'0 0 8px'}}>💬 WhatsApp 7039330945</p>
+                <p style={{margin:'0 0 10px',lineHeight:1.6}}>Ridhisha Tower, Sector 23<br/>Taloja Phase 2, Navi Mumbai</p>
+                <p style={{margin:0,color:'#4ade80',fontWeight:600,fontSize:13}}>Emergency: 24/7</p>
+              </div>
+            </div>
+          </div>
+          <div style={{borderTop:'1px solid rgba(255,255,255,0.06)',paddingTop:24,
+            display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:12}}>
+            <p style={{margin:0,fontSize:12.5,color:'rgba(255,255,255,0.22)'}}>© 2026 Vaibhavi Hospital, Taloja Phase 2. All rights reserved.</p>
+            <p style={{margin:0,fontSize:12.5,color:'rgba(255,255,255,0.22)'}}>vaibhavihospitaltaloja.in</p>
+          </div>
+        </div>
+      </footer>
+    );
+
+    /* ── APP ── */
+    const App = () => (
+      <div style={{fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif"}}>
+        <Navbar/>
+        <Hero/>
+        <TrustStrip/>
+        <QuickActionStrip/>
+        <DoctorAuthority/>
+        <CarePhilosophy/>
+        <MeetExperts/>
+        <ServicesGrid/>
+        <FacilitiesSection/>
+        <ThursdayCamp/>
+        <SocialProof/>
+        <AppointmentCTA/>
+        <Footer/>
+      </div>
+    );
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>
