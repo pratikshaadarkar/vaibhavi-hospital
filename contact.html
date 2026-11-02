@@ -836,7 +836,10 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
     <h2>Need Assistance?</h2>
     <p class="form-sub">Leave your details and our team will call you back to schedule a time that works for you.</p>
 
-    <form class="contact-form" action="#" method="POST">
+    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="815f4f79-d88d-4155-b4c4-0e16beac6fda">
+      <input type="hidden" name="subject" value="New Appointment Request – Vaibhavi Hospital">
+      <input type="checkbox" name="botcheck" style="display:none">
       <div class="form-row">
         <div class="form-group">
           <label for="cf-name">Your Name <span style="color:red;">*</span></label>

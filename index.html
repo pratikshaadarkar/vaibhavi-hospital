@@ -2045,11 +2045,14 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
       </div>
 
       <!-- Hero Form Card -->
-      <div class="hero-form-card">
+      <form class="hero-form-card" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="815f4f79-d88d-4155-b4c4-0e16beac6fda">
+        <input type="hidden" name="subject" value="New Appointment Request – Vaibhavi Hospital">
+        <input type="checkbox" name="botcheck" style="display:none">
         <h3>Book an Appointment with Dr. Vaibhavi</h3>
-        <input type="text" class="hfc-field" placeholder="Your Name">
-        <input type="tel" class="hfc-field" placeholder="Phone Number">
-        <select class="hfc-field" onchange="this.style.color='#1a1a1a'">
+        <input type="text" class="hfc-field" name="name" placeholder="Your Name" required>
+        <input type="tel" class="hfc-field" name="phone" placeholder="Phone Number" required>
+        <select class="hfc-field" name="service" onchange="this.style.color='#1a1a1a'">
           <option value="" disabled selected style="color:#aab0bc;">Select Service</option>
           <option>OPD Consultation</option>
           <option>Pregnancy Check-Up (Antenatal Care)</option>
@@ -2064,10 +2067,10 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
           <option>Vaccination (Mother or Baby)</option>
           <option>Free Thursday Check-Up (5 PM – 7 PM)</option>
         </select>
-        <textarea class="hfc-field" rows="3" placeholder="Anything you'd like the doctor to know? (optional)" style="resize:none;"></textarea>
-        <button class="hfc-submit">Request My Call Back</button>
+        <textarea class="hfc-field" name="message" rows="3" placeholder="Anything you'd like the doctor to know? (optional)" style="resize:none;"></textarea>
+        <button type="submit" class="hfc-submit">Request My Call Back</button>
         <p class="hfc-note">Emergency? Call +91 70393 30945.</p>
-      </div>
+      </form>
 
     </div>
   </div>
