@@ -2071,6 +2071,11 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
         <button type="submit" class="hfc-submit">Request My Call Back</button>
         <p class="hfc-note">Emergency? Call +91 70393 30945.</p>
       </form>
+      <div class="hfc-thanks" style="display:none;text-align:center;padding:36px 16px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin-bottom:16px;"><circle cx="26" cy="26" r="26" fill="#e8f5e4"/><path d="M16 26l8 8 12-14" stroke="#39892F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p style="font-family:var(--serif);font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">Thank you!</p>
+        <p style="color:rgba(255,255,255,0.85);font-size:14px;line-height:1.7;">Our team will call you back shortly.<br>For urgent care, call <a href="tel:+917039330945" style="color:#fff;font-weight:600;">+91 70393 30945</a>.</p>
+      </div>
 
     </div>
   </div>
@@ -2660,41 +2665,38 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
 })();
 </script>
 
+
 <script>
 (function(){
-  var form = document.querySelector('.hero-form-card');
-  if(!form) return;
-  form.addEventListener('submit', function(e){
+  var form = document.querySelector("form.hero-form-card");
+  var thanks = document.querySelector(".hfc-thanks");
+  if (!form || !thanks) return;
+  form.addEventListener("submit", function(e) {
     e.preventDefault();
-    if(form.querySelector('[name="botcheck"]').checked) return;
-    var btn = form.querySelector('.hfc-submit');
+    var bot = form.querySelector("[name=botcheck]");
+    if (bot && bot.checked) return;
+    var btn = form.querySelector(".hfc-submit");
     btn.disabled = true;
-    btn.textContent = 'Sending…';
-    var data = new FormData(form);
-    fetch('https://api.web3forms.com/submit', { method:'POST', body: data })
-      .then(function(r){ return r.json(); })
-      .then(function(res){
-        if(res.success){
-          form.innerHTML = '<div style="text-align:center;padding:32px 16px;">'
-            + '<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin-bottom:16px;">'
-            + '<circle cx="26" cy="26" r="26" fill="#e8f5e4"/>'
-            + '<path d="M16 26l8 8 12-14" stroke="#39892F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
-            + '</svg>'
-            + '<p style="font-family:var(--serif);font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;">Thank you!</p>'
-            + '<p style="color:rgba(255,255,255,0.85);font-size:14px;line-height:1.6;">Our team will call you back shortly.<br>For urgent care, call <a href="tel:+917039330945" style="color:#fff;font-weight:600;">+91 70393 30945</a>.</p>'
-            + '</div>';
+    btn.textContent = "Sending…";
+    fetch("https://api.web3forms.com/submit", { method: "POST", body: new FormData(form) })
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res.success) {
+          form.style.display = "none";
+          thanks.style.display = "block";
         } else {
           btn.disabled = false;
-          btn.textContent = 'Request My Call Back';
-          alert('Something went wrong. Please call us at +91 70393 30945.');
+          btn.textContent = "Request My Call Back";
+          alert("Something went wrong. Please call +91 70393 30945.");
         }
       })
-      .catch(function(){
+      .catch(function() {
         btn.disabled = false;
-        btn.textContent = 'Request My Call Back';
-        alert('Could not send. Please call us at +91 70393 30945.');
+        btn.textContent = "Request My Call Back";
+        alert("Could not send. Please call +91 70393 30945.");
       });
   });
 })();
 </script>
 </body>
+</html>
