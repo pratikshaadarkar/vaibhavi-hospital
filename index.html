@@ -1619,7 +1619,7 @@ footer > .wrap,
 .hero-inner,
 .contact-inner,
 .ins-inner {
-  max-width: 1600px;
+  max-width: var(--max);
   margin-inline: auto;
 }
 
@@ -1938,14 +1938,9 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); }
 /* ── ULTRAWIDE: 1920px+ ── */
 @media (min-width: 1920px) {
   .wrap,
-  .nav-inner { max-width: 1600px; }
+  .nav-inner { max-width: var(--max); }
   body { font-size: 17px; }
 }
-
-/* Keep hero, doctor and Thursday text columns at a readable width */
-.hero > .wrap,
-.doctor-section > .wrap,
-.thursday-section > .wrap { max-width: var(--max); }
 </style>
 
 <style>
