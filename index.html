@@ -190,7 +190,7 @@
 
   /* ── HERO ── */
   .hero {
-    background: #000;
+    background: var(--hero-bg) center/cover no-repeat;
     border-bottom: 1px solid var(--border);
     padding: 72px 0 80px;
     min-height: 85vh;
@@ -202,8 +202,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--hero-bg) center/cover no-repeat;
-    opacity: 0.82;
+    background: rgba(0,0,0,0.28);
     z-index: 0;
   }
   .hero .hero-inner { position: relative; z-index: 1; }
